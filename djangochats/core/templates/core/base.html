@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>{% block title %}{% endblock %}Chatify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+ <style>
+  .chat-messages{
+       height: 400px;
+       overflow-y: auto;
+  }
+
+ </style>
+</head>
+<body class="bg-teal-600">
+    <nav class="flex items-center justify-between px-4 py-6 bg-teal-800">
+     <div>
+        <a href="" class="text-xl text-white">CHATIFY</a>
+     </div>
+     <div class="flex items-center space-x-4">
+        {% if request.user.is_authenticated %}
+        
+        <a href="/rooms/createroom/" class="text-white hover:text-grey-200">CreateRoom</a>
+        <a href="/rooms/" class="text-white hover:text-grey-200">Rooms</a>
+             
+        <a href="/personalchat/" class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700">PersonalChat</a>     
+          
+        <a href="/logout/" class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700">logout</a>
+        {% else %}
+    <a href="/login/" class="text-white hover:text-grey-200">login</a>
+     <a href="/signup/" class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700">signup</a>     
+       {% endif %}
+    </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

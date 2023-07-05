@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+{% block title %}Create Room|{%endblock%}
+
+{%block content%}
+<div class="p-10 lg:p-20 text-center">
+    <h1 class="text-3xl lg:text-6xl text-white">Create your  room</h1>
+ </div>
+<form method="post" id='form' action="" class="lg:w-1/4 px-4 mx-auto">
+{% csrf_token %}
+<div class="mb-5">
+<label class="text-white" for="">ROOM NAME</label>
+<input type="text" name="room" class="w-full mt-2 px-4 py-2 rounded-xl">
+</div>
+<div class="mb-5">
+    <label class="text-white" for="">secretcode</label>
+    <input type="text" name="code" class="w-full mt-2 px-4 py-2 rounded-xl">
+    </div>
+<button type="submit" class="px-5 py-3 rounded-xl text-white bg-teal-800 hover:bg-teal-700">submit</button>
+        
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    const form= document.getElementById('form')
+    console.log(form)
+    form.addEventListener("submit",submithandler);
+    
+
+    function submithandler(e){
+        e.preventDefault();
+        console.log('ajaa')
+        $.ajax({
+            type:'POST',
+            url:'/rooms/createroom/',
+            data:$('#form').serialize(),
+            dataType:'json',
+            success:function(data){
+
+                if (data.msg=='notsuccess'){
+                    alert('code alreadyexists,try another one')
+                }
+                else{
+                   
+                    window.location.href='/rooms/'
+                }
+            }
+
+        })
+
+    }
+</script>
+{%endblock%}
+<!-- {% comment %} <div class="mb-5">
+    <label class="text-white" for="">Password</label>
+    <input type="password" name="password" class="w-full mt-2 px-4 py-2 rounded-xl">
+    
+    </div> {% endcomment %} -->
